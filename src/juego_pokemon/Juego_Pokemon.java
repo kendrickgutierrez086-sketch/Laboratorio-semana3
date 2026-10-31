@@ -14,8 +14,7 @@ public class Juego_Pokemon {
     public static void main(String[] args) {
        SwingUtilities.invokeLater(() -> {
             
-            VentanaTablero tablero = new VentanaTablero("Jugador 1", "Jugador 2");
-            tablero.setVisible(true);
+            new Pantallainicio().setVisible(true);
         });
     }
     
