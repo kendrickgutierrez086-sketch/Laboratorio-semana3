@@ -95,7 +95,10 @@ public class VentanaTablero extends JFrame {
         Carta cartaSeleccionada = tableroModelo[indiceCarta];
 
         if (cartaSeleccionada.estaDescubierta() || cartaSeleccionada.estaEmparejada()) {
-            return;
+            return; 
+        }
+        if (esSegundaCarta && seleccion1Fila == fila && seleccion1Col == col) {
+            return; 
         }
 
         if (!esSegundaCarta) {

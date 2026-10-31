@@ -137,7 +137,7 @@ public class JuegoPokemon extends ControlJuego{
         Carta carta1 = tablero[posicion1];
         Carta carta2 = tablero[posicion2];
         
-        if (carta1.estaDescubierta()||carta2.estaDescubierta()||carta1.estaEmparejada()||carta2.estaEmparejada()) {
+        if (carta1.estaEmparejada()||carta2.estaEmparejada()) {
             throw new IllegalArgumentException("No puede elegir una carta descubierta o emparejada");
         }
         carta1.mostrar();
