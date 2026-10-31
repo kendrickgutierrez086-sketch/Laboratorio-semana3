@@ -5,7 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class VentanaTablero extends JFrame {
-    private JButton[][] botonesTablero = new JButton[6][6];
+    private CartaUI[][] botonesTablero = new CartaUI[6][6];
     private JLabel lblTurno, lblJugador1, lblJugador2;
     private Timer temporizadorPausa;
     private boolean tableroBloqueado = false;
@@ -54,7 +54,11 @@ public class VentanaTablero extends JFrame {
 
         for (int i = 0; i < 6; i++) {
             for (int j = 0; j < 6; j++) {
-                botonesTablero[i][j] = new JButton("?");
+                int indice = i * 6 + j;
+                Carta cartaModelo = juego.getTablero()[indice];
+                 boolean esEspecial = cartaModelo instanceof CartaEspecial;
+                
+                botonesTablero[i][j] = new CartaUI(cartaModelo.getNombrePokemon(), esEspecial);
                 botonesTablero[i][j].setFont(new Font("SansSerif", Font.BOLD, 14));
                 botonesTablero[i][j].setFocusPainted(false);
 
@@ -105,13 +109,13 @@ public class VentanaTablero extends JFrame {
             seleccion1Fila = fila;
             seleccion1Col = col;
             cartaSeleccionada.mostrar();
-            botonesTablero[fila][col].setText(cartaSeleccionada.getNombrePokemon());
+            botonesTablero[fila][col].setDescubierta(true);
             esSegundaCarta = true;
         } else {
             seleccion2Fila = fila;
             seleccion2Col = col;
             cartaSeleccionada.mostrar();
-            botonesTablero[fila][col].setText(cartaSeleccionada.getNombrePokemon());
+            botonesTablero[fila][col].setDescubierta(true);
             esSegundaCarta = false;
 
             int indice1 = seleccion1Fila * 6 + seleccion1Col;
@@ -132,8 +136,8 @@ public class VentanaTablero extends JFrame {
                         public void actionPerformed(ActionEvent e) {
                             tableroModelo[indice1].ocultar();
                             tableroModelo[indice2].ocultar();
-                            botonesTablero[seleccion1Fila][seleccion1Col].setText("?");
-                            botonesTablero[seleccion2Fila][seleccion2Col].setText("?");
+                            botonesTablero[seleccion1Fila][seleccion1Col].setDescubierta(false);
+                            botonesTablero[seleccion2Fila][seleccion2Col].setDescubierta(false);
 
                             juego.controlarTurno();
                             actualizarMarcadores();
